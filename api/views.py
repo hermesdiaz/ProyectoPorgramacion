@@ -1,4 +1,6 @@
-from django.shortcuts import render
+import stat
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Empresas, Pagos, Obligaciones
@@ -34,6 +36,16 @@ def create_view_empresas(request):
         return Response(empresa.data)
     return Response(empresa.errors,status=status.HTTP_404_NOT_FOUND)
 
+@api_view(['DELETE'])
+def delete_empresas(request, pk): 
+	try: 
+		empresa = Empresas.objects.get(pk=pk)
+	except Empresas.DoesNotExist: 
+		return JsonResponse({'message': 'The tutorial does not exist'}, status=status.HTTP_404_NOT_FOUND)
+ 
+	empresa.delete()
+	return JsonResponse({'message': 'Tutorial was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)	
+
 #APIS PARA OBLIGACIONES   
 @api_view(['GET'])
 def view_obligaciones(request):
@@ -62,6 +74,18 @@ def create_view_obligaciones(request):
         return Response(obligacion.data)
     return Response(obligacion.errors,status=status.HTTP_404_NOT_FOUND)
 
+
+@api_view(['DELETE'])
+def delete_obligaciones(request, pk): 
+	try: 
+		obligacion = Obligaciones.objects.get(pk=pk)
+	except Obligaciones.DoesNotExist: 
+		return JsonResponse({'message': 'The tutorial does not exist'}, status=status.HTTP_404_NOT_FOUND)
+ 
+	obligacion.delete()
+	return JsonResponse({'message': 'Tutorial was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+
+
 #APIS PARA PAGOS   
 @api_view(['GET'])
 def view_pagos(request):
@@ -89,3 +113,14 @@ def create_view_pagos(request):
         pagos.save()
         return Response(pagos.data)
     return Response(pagos.errors,status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['DELETE'])
+def delete_pagos(request, pk): 
+	try: 
+		pago = Pagos.objects.get(pk=pk)
+	except Pagos.DoesNotExist: 
+		return JsonResponse({'message': 'The tutorial does not exist'}, status=status.HTTP_404_NOT_FOUND)
+ 
+	pago.delete()
+	return JsonResponse({'message': 'Tutorial was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
