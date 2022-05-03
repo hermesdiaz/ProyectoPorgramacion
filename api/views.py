@@ -1,4 +1,6 @@
+from functools import partial
 import stat
+from urllib import response
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from rest_framework.decorators import api_view
@@ -46,6 +48,15 @@ def delete_empresas(request, pk):
 	empresa.delete()
 	return JsonResponse({'message': 'Tutorial was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)	
 
+@api_view(['PATCH'])
+def update_empresas(request, pk):
+	empresa = Empresas.objects.get(pk=pk)
+	serializer = EmpresasSerializer(instance=empresa, data=request.data, partial=True, context={'pk': pk})
+	if serializer.is_valid():
+		serializer.update(instance=empresa, validated_data=request.data)
+		return JsonResponse({'message': 'Actualizado'}, status=status.HTTP_204_NO_CONTENT)
+
+
 #APIS PARA OBLIGACIONES   
 @api_view(['GET'])
 def view_obligaciones(request):
@@ -84,6 +95,14 @@ def delete_obligaciones(request, pk):
  
 	obligacion.delete()
 	return JsonResponse({'message': 'Tutorial was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['PUT'])
+def update_obligaciones(request, pk):
+	obligacion = Obligaciones.objects.get(pk=pk)
+	serializer = ObligacionesSerializer(instance=obligacion, data=request.data, partial=True, context={'pk': pk})
+	if serializer.is_valid():
+		serializer.update(instance=obligacion, validated_data=request.data)
+		return JsonResponse({'message': 'Actualizado'}, status=status.HTTP_204_NO_CONTENT)
 
 
 #APIS PARA PAGOS   
@@ -124,3 +143,12 @@ def delete_pagos(request, pk):
  
 	pago.delete()
 	return JsonResponse({'message': 'Tutorial was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['PUT'])
+def update_pagos(request, pk):
+	pago = Pagos.objects.get(pk=pk)
+	serializer = PagosSerializer(instance=pago, data=request.data, partial=True, context={'pk': pk})
+	if serializer.is_valid():
+		serializer.update(instance=pago, validated_data=request.data)
+		return JsonResponse({'message': 'Actualizado'}, status=status.HTTP_204_NO_CONTENT)

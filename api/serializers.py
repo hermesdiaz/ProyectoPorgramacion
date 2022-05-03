@@ -4,7 +4,7 @@ from .models import Empresas,Pagos,Obligaciones
 class EmpresasSerializer(serializers.ModelSerializer):
     class Meta:
         model = Empresas
-        fields = "__all__"
+        fields = '__all__'
 
 class PagosSerializer(serializers.ModelSerializer):
     class Meta:
