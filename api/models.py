@@ -13,9 +13,9 @@ class Empresas(models.Model):
 class Obligaciones(models.Model):
 	id_empresa = models.ForeignKey(
 	    Empresas, on_delete=models.SET_NULL, null=True)
-	nombre_empresa = models.CharField(max_length=255, unique=True)
+	#nombre_empresa = models.CharField(max_length=255, unique=True)
 	nombre_obligacion= models.CharField(max_length=255)
-	nit_empresa = models.CharField(max_length=255, unique=True)
+	#nit_empresa = models.CharField(max_length=255, unique=True)
 	fecha_pago_obligacion = models.DateField()
 	valor = models.CharField(max_length=255, unique=True)
 	periodicidad = models.CharField(max_length=255, unique=True)
