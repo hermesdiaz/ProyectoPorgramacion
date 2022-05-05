@@ -16,7 +16,7 @@ def view_empresas(request):
 
 	# checking for the parameters from the URL
 	if request.query_params:
-		empresa = Empresas.objects.filter(**request.query_param.dict())
+		empresa = Empresas.objects.filter(**request.query_params.dict())
 	else:
 		empresa = Empresas.objects.all()
 
@@ -63,7 +63,7 @@ def view_obligaciones(request):
 
 	# checking for the parameters from the URL
 	if request.query_params:
-		obligacion = Obligaciones.objects.filter(**request.query_param.dict())
+		obligacion = Obligaciones.objects.filter(**request.query_params.dict())
 	else:
 		obligacion = Obligaciones.objects.all()
 
@@ -111,7 +111,7 @@ def view_pagos(request):
 
 	# checking for the parameters from the URL
 	if request.query_params:
-		pagos = Pagos.objects.filter(**request.query_param.dict())
+		pagos = Pagos.objects.filter(**request.query_params.dict())
 	else:
 		pagos = Pagos.objects.all()
 
