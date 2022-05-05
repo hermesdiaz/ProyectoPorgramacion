@@ -69,7 +69,7 @@ def view_obligaciones(request):
 
 	# if there is something in items else raise error
 	if obligacion:
-		data = EmpresasSerializer(obligacion, many=True)
+		data = ObligacionesSerializer(obligacion, many=True)
 		return Response(data.data)
 	else:
 		return Response(status=status.HTTP_404_NOT_FOUND)
@@ -117,7 +117,7 @@ def view_pagos(request):
 
 	# if there is something in items else raise error
 	if pagos:
-		data = EmpresasSerializer(pagos, many=True)
+		data = PagosSerializer(pagos, many=True)
 		return Response(data.data)
 	else:
 		return Response(status=status.HTTP_404_NOT_FOUND)
