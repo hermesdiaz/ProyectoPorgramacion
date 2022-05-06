@@ -48,13 +48,18 @@ def delete_empresas(request, pk):
 	empresa.delete()
 	return JsonResponse({'message': 'Tutorial was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)	
 
-@api_view(['PATCH'])
+@api_view(['PUT'])
 def update_empresas(request, pk):
-	empresa = Empresas.objects.get(pk=pk)
-	serializer = EmpresasSerializer(instance=empresa, data=request.data, partial=True, context={'pk': pk})
-	if serializer.is_valid():
-		serializer.update(instance=empresa, validated_data=request.data)
-		return JsonResponse({'message': 'Actualizado'}, status=status.HTTP_204_NO_CONTENT)
+    try: 
+        empresa = Empresas.objects.get(pk=pk)
+    except Empresas.DoesNotExist: 
+        return JsonResponse({'message': 'The tutorial does not exist'}, status=status.HTTP_404_NOT_FOUND)
+    serializer = EmpresasSerializer(instance=empresa, data=request.data, partial=True, context={'pk': pk})
+    if serializer.is_valid():
+        serializer.update(instance=empresa, validated_data=request.data)
+    return JsonResponse({'message': 'Actualizado'}, status=status.HTTP_204_NO_CONTENT)
+	
+	
 
 
 #APIS PARA OBLIGACIONES   
@@ -98,11 +103,16 @@ def delete_obligaciones(request, pk):
 
 @api_view(['PUT'])
 def update_obligaciones(request, pk):
-	obligacion = Obligaciones.objects.get(pk=pk)
-	serializer = ObligacionesSerializer(instance=obligacion, data=request.data, partial=True, context={'pk': pk})
-	if serializer.is_valid():
-		serializer.update(instance=obligacion, validated_data=request.data)
-		return JsonResponse({'message': 'Actualizado'}, status=status.HTTP_204_NO_CONTENT)
+    try: 
+        obligacion = Obligaciones.objects.get(pk=pk)
+    except Empresas.DoesNotExist: 
+        return JsonResponse({'message': 'The tutorial does not exist'}, status=status.HTTP_404_NOT_FOUND)
+    serializer = ObligacionesSerializer(instance=obligacion, data=request.data, partial=True, context={'pk': pk})
+    if serializer.is_valid():
+        serializer.update(instance=obligacion, validated_data=request.data)
+    return JsonResponse({'message': 'Actualizado'}, status=status.HTTP_204_NO_CONTENT)
+
+		
 
 
 #APIS PARA PAGOS   
@@ -147,8 +157,12 @@ def delete_pagos(request, pk):
 
 @api_view(['PUT'])
 def update_pagos(request, pk):
-	pago = Pagos.objects.get(pk=pk)
-	serializer = PagosSerializer(instance=pago, data=request.data, partial=True, context={'pk': pk})
-	if serializer.is_valid():
-		serializer.update(instance=pago, validated_data=request.data)
-		return JsonResponse({'message': 'Actualizado'}, status=status.HTTP_204_NO_CONTENT)
+    try: 
+        pago = Pagos.objects.get(pk=pk)    
+    except Empresas.DoesNotExist: 
+        return JsonResponse({'message': 'The tutorial does not exist'}, status=status.HTTP_404_NOT_FOUND)
+    serializer = PagosSerializer(instance=pago, data=request.data, partial=True, context={'pk': pk})
+    if serializer.is_valid():
+        serializer.update(instance=pago, validated_data=request.data)
+    return JsonResponse({'message': 'Actualizado'}, status=status.HTTP_204_NO_CONTENT)
+	
