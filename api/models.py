@@ -11,7 +11,7 @@ class Empresas(models.Model):
 
 class Obligaciones(models.Model):
 	id_empresa = models.ForeignKey(
-	    Empresas, on_delete=models.SET_NULL, null=True)
+	    Empresas, on_delete=models.CASCADE, null=True)
 	nombre_obligacion= models.CharField(max_length=255, unique=False)
 	periodicidad = models.CharField(max_length=255, unique=False)
     
@@ -21,7 +21,7 @@ class Obligaciones(models.Model):
 
 class Pagos(models.Model):
 	id_obligacion = models.ForeignKey(
-	    Obligaciones, on_delete=models.SET_NULL, null=True)
+	    Obligaciones, on_delete=models.CASCADE, null=True)
 	fecha_pago = models.DateField()
 	valor = models.CharField(max_length=255 )
 
