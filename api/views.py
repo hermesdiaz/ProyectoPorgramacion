@@ -52,12 +52,13 @@ def delete_empresas(request, pk):
 def update_empresas(request, pk):
     try: 
         empresa = Empresas.objects.get(pk=pk)
-    except Empresas.DoesNotExist: 
+    except: 
         return JsonResponse({'message': 'The tutorial does not exist'}, status=status.HTTP_404_NOT_FOUND)
     serializer = EmpresasSerializer(instance=empresa, data=request.data, partial=True, context={'pk': pk})
     if serializer.is_valid():
         serializer.update(instance=empresa, validated_data=request.data)
-    return JsonResponse({'message': 'Actualizado'}, status=status.HTTP_204_NO_CONTENT)
+        return JsonResponse({'message': 'Actualizado'}, status=status.HTTP_204_NO_CONTENT)
+    return JsonResponse({'message': 'Error'}, status=status.HTTP_204_NO_CONTENT)
 	
 	
 
@@ -105,13 +106,13 @@ def delete_obligaciones(request, pk):
 def update_obligaciones(request, pk):
     try: 
         obligacion = Obligaciones.objects.get(pk=pk)
-    except Empresas.DoesNotExist: 
+    except: 
         return JsonResponse({'message': 'The tutorial does not exist'}, status=status.HTTP_404_NOT_FOUND)
     serializer = ObligacionesSerializer(instance=obligacion, data=request.data, partial=True, context={'pk': pk})
     if serializer.is_valid():
         serializer.update(instance=obligacion, validated_data=request.data)
-    return JsonResponse({'message': 'Actualizado'}, status=status.HTTP_204_NO_CONTENT)
-
+        return JsonResponse({'message': 'Actualizado'}, status=status.HTTP_204_NO_CONTENT)
+    return JsonResponse({'message': 'ERROR'}, status=status.HTTP_204_NO_CONTENT)
 		
 
 
@@ -159,10 +160,11 @@ def delete_pagos(request, pk):
 def update_pagos(request, pk):
     try: 
         pago = Pagos.objects.get(pk=pk)    
-    except Empresas.DoesNotExist: 
+    except: 
         return JsonResponse({'message': 'The tutorial does not exist'}, status=status.HTTP_404_NOT_FOUND)
     serializer = PagosSerializer(instance=pago, data=request.data, partial=True, context={'pk': pk})
     if serializer.is_valid():
         serializer.update(instance=pago, validated_data=request.data)
-    return JsonResponse({'message': 'Actualizado'}, status=status.HTTP_204_NO_CONTENT)
+        return JsonResponse({'message': 'Actualizado'}, status=status.HTTP_204_NO_CONTENT)
+    return JsonResponse({'message': 'Error'}, status=status.HTTP_204_NO_CO)
 	
